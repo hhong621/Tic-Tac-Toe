@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap');
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size) * .9);
+}
+
+body {
+    display: flex;
+    margin: 0;
+    font-family: "Schibsted Grotesk", sans-serif;
+    background-color: #f9faef;
+    flex-direction: column;
+}
+
+.board {
+    width: 100vw;
+    height: 50vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid #2f312a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+    border-bottom: none;
+}
+
+.cell.x,
+.cell.o {
+    cursor: not-allowed;
+}
+
+.cell.x::before,
+.cell.x::after,
+.cell.o::before {
+    background-color: #2f312a;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.o .cell:not(.x):not(.o):hover::before {
+    background-color: #dadbd0;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--mark-size) * .1);
+    height: var(--mark-size);
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before {
+    transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after {
+    transform: rotate(-45deg);
+}
+
+.cell.o::before,
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before {
+    width: calc(var(--mark-size) * .85);
+    height: calc(var(--mark-size) * .85);
+}
+
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after {
+    width: calc(var(--mark-size) * .65);
+    height: calc(var(--mark-size) * .65);
+    background-color: #f9faef;
+}
+
+button {
+    font-size: 1.5rem;
+    font-weight: 100;
+    color: #151e0b;
+    background-color: #dce7c8;
+    border: none;
+    padding: .5em 1.5em;
+    border-radius: 100px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #CDD7B9;
+    box-shadow: 0px 1px 1px 0px #dadbd0;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: #b0b69c;
+    box-shadow: 0px 1px 1px 0px #dadbd0;
+}
+
+.winning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 4rem;
+    flex-direction: column;
+}
+
+.winning-message.show {
+    display: flex;
+}
+
+.winning-message-contents {
+    display: flex;
+    padding-top: 35%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.player-select {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f9faef;
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    color: #1a1c16;
+    flex-direction: column;
+}
+
+.player-select.show {
+    display: flex;
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: 400;
+}
+
+.subtitle {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #44483d;
+}
+
+.turn-text {
+    display: flex;
+    height: 25vh;
+    font-size: 2rem;
+    justify-content: center;
+    align-items: center;
+}
